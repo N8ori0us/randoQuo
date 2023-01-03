@@ -1,5 +1,5 @@
 import { View, Text, Image, TextInput } from "react-native";
-import { assets, COLORS, FONTS, SIZES } from "../constants";
+import {COLORS, FONTS, SIZES } from "../constants/theme";
 
 const HomeHeader = ({ data, onSearch }) => {
   return (
@@ -16,28 +16,7 @@ const HomeHeader = ({ data, onSearch }) => {
           alignItems: "center",
         }}
       >
-        <Image
-          source={assets.logo}
-          resizeMode="contain"
-          style={{ width: 90, height: 25 }}
-        />
         <View style={{ width: 45, height: 45 }}>
-          <Image
-            source={assets.person01}
-            resizeMode="contain"
-            style={{ width: "100%", height: "100%" }}
-          />
-          <Image
-            source={assets.badge}
-            resizeMode="contain"
-            style={{
-              position: "absolute",
-              width: 15,
-              height: 15,
-              bottom: 0,
-              right: 0,
-            }}
-          />
         </View>
       </View>
       <View style={{ marginVertical: SIZES.font }}>
@@ -51,7 +30,7 @@ const HomeHeader = ({ data, onSearch }) => {
           {data.Category}
         </Text>
           
-        {[data.Tags].map((tag) => (
+        {[data.Tags].map((tag, index) => (
           <View
             style={{
               flex: 1,
@@ -60,7 +39,7 @@ const HomeHeader = ({ data, onSearch }) => {
             }}
           >
             <Text
-            key={tag}
+            key={index}
             style={{
                 fontFamily: FONTS.bold,
                 fontSize: SIZES.large,
@@ -68,7 +47,7 @@ const HomeHeader = ({ data, onSearch }) => {
                 marginTop: SIZES.base / 2,
               }}
             >
-              {tag}
+              {tag?tag.join(' '):''}
             </Text>
           </View>
         ))}
@@ -85,11 +64,6 @@ const HomeHeader = ({ data, onSearch }) => {
             paddingVertical: SIZES.small - 2,
           }}
         >
-          <Image
-            source={assets.search}
-            resizeMode="contain"
-            style={{ width: 20, height: 20, marginRight: SIZES.base }}
-          />
           <TextInput
             placeholder="Search Quotes"
             style={{ flex: 1 }}

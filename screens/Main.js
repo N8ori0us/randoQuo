@@ -3,40 +3,39 @@ import {
   Text,
   FlatList,
   SafeAreaView,
-  TouchableOpacity,
-  Button,
-} from "react-native";
+  TouchableOpacity
+  } from "react-native";
 import { useState } from "react";
 import { quotes } from "../shared/quotes";
-import FocusedStatusBar from "../components/FocusedStatusBar";
-import { assets, COLORS, FONTS, SIZES } from "../constants";
-import HomeHeader from "../components/HomeHeader";
-import QuoteCard from "../components/QuoteCard";
-import { RectButton } from "../components/Button";
+import { COLORS, FONTS, SIZES } from "../constants/theme";
+import { QuoteCard, HomeHeader, FocusedStatusBar } from "../components";
 
 
 const Main = () => {
-  let rand = quotes[Math.floor(Math.random() * quotes.length) - 1];
+  let rand=Math.floor(Math.random() * quotes.length) - 1
+  let randQuote = quotes[rand];
   
-  const [quote, setQuote] = useState(rand);
+  const [loading, setLoading] = useState(true)
+  const [quote, setQuote] = useState(randQuote);
+  const [qArr, setQArr] = useState([])
   
   const handleSearch = (value) => {
-    if(!value.length) setQuote(quotes);
     
-
+    if(!value.length) setQuote(randQuote);
+    
     const filteredData = quotes.filter((item) =>
-      (item.Author||item.Category||[...item.Tags]).toLowerCase().includes(value.toLowerCase().toString())
+      (item.Author||item.Quote||item.Category||[...item.Tags]).toLowerCase().includes(value.toLowerCase())
     );
-
+    setQArr(filteredData)
     if(filteredData.length) {
-      setQuote([filteredData]);
+
+      setQuote(...filteredData);
     } else {
-      setQuote(rand);
+      setQuote(randQuote);
     }
   };
 
-
-  console.log(quote);
+  console.log();
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <FocusedStatusBar backgroundColor={COLORS.primary} />
@@ -52,9 +51,28 @@ const Main = () => {
           />
         </View>
       </View>
-      <View onPress={() => setQuote(rand)}>
+      <View 
+      style={{
+        backgroundColor: COLORS.primary,
+        borderRadius: SIZES.extraLarge,
+        minWidth: 200,
+        padding: SIZES.small,
+        marginHorizontal:100,
+        marginBottom: SIZES.small
+      }}
+      >
         <View>
-          <Text>Next Quote</Text>
+          <TouchableOpacity onPress={() => setQuote(randQuote)}>
+            <Text
+              style={{
+                fontFamily: FONTS.semiBold,
+                color: COLORS.white,
+                fontSize: 20,
+                textAlign: "center",
+              }}>
+              Next Quote
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>

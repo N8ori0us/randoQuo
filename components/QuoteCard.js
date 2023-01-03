@@ -1,8 +1,7 @@
 import { View, Image, Text } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { COLORS, SIZES, SHADOWS, assets } from "../constants/index";
-import { CircleButton, RectButton } from "./Button";
+import { COLORS, SIZES, SHADOWS, FONTS } from "../constants/theme";
 
 
 const QuoteCard = ({ data }) => {
@@ -12,7 +11,7 @@ const QuoteCard = ({ data }) => {
     <View
       style={{
         backgroundColor: COLORS.white,
-        borderRadius: SIZES.font,
+        borderRadius: SIZES.large,
         marginBottom: SIZES.extraLarge,
         margin: SIZES.base,
         ...SHADOWS.dark,
@@ -22,17 +21,17 @@ const QuoteCard = ({ data }) => {
         style={{
           backgroundColor: "white",
           padding: 10,
-          marginTop: 30,
+          marginVertical: 30,
           alignItems: "center",
         }}
       >
-        <Text style={{ position: "absolute", top: 0, left: 10 }}>
+        <Text style={{ position: "absolute", top: -10}}>
           {data.Author}
         </Text>
-        <Text style={{ position: "absolute", bottom: -8, right: 10 }}>
+        <Text style={{ position: "absolute", bottom: -12}}>
           {data.Category}
         </Text>
-        <Text style={{ marginTop: 10 }}>{data.Quote}</Text>
+        <Text style={{ fontSize: SIZES.extraLarge, marginTop: 10 }}>{data.Quote}</Text>
       </View>
     </View>
   );
