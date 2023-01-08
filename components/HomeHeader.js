@@ -1,5 +1,6 @@
 import { View, Text, Image, TextInput } from "react-native";
-import {COLORS, FONTS, SIZES } from "../constants/theme";
+import { COLORS, FONTS, SIZES } from "../constants/theme";
+import search from "../assets/icons/search.png";
 
 const HomeHeader = ({ data, onSearch }) => {
   return (
@@ -16,8 +17,7 @@ const HomeHeader = ({ data, onSearch }) => {
           alignItems: "center",
         }}
       >
-        <View style={{ width: 45, height: 45 }}>
-        </View>
+        <View style={{ width: 45, height: 45 }}></View>
       </View>
       <View style={{ marginVertical: SIZES.font }}>
         <Text
@@ -29,9 +29,10 @@ const HomeHeader = ({ data, onSearch }) => {
         >
           {data.Category}
         </Text>
-          
+
         {[data.Tags].map((tag, index) => (
           <View
+            key={index}
             style={{
               flex: 1,
               alignItems: "center",
@@ -39,15 +40,14 @@ const HomeHeader = ({ data, onSearch }) => {
             }}
           >
             <Text
-            key={index}
-            style={{
+              style={{
                 fontFamily: FONTS.bold,
                 fontSize: SIZES.large,
                 color: COLORS.white,
                 marginTop: SIZES.base / 2,
               }}
             >
-              {tag?tag.join(' '):''}
+              {tag ? tag.join(" ") : ""}
             </Text>
           </View>
         ))}
@@ -64,9 +64,20 @@ const HomeHeader = ({ data, onSearch }) => {
             paddingVertical: SIZES.small - 2,
           }}
         >
+          <Image
+            source={search}
+            style={{
+              left: 0,
+              zIndex: 3,
+              height: SIZES.large + 5,
+              width: SIZES.large + 5,
+              padding: SIZES.font,
+              marginRight: "25%",
+            }}
+          />
           <TextInput
             placeholder="Search Quotes"
-            style={{ flex: 1 }}
+            style={{ flex: 1, color: COLORS.white, fontSize: SIZES.large }}
             onChangeText={onSearch}
           />
         </View>
